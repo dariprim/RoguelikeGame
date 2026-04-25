@@ -1,6 +1,6 @@
 using RoguelikeGame.Core;
 using RoguelikeGame.Core.Enemies;
-
+using RoguelikeGame.Patterns.AbstractFactory;
 namespace RoguelikeGame.Patterns.Builder;
 
 public class SimpleLevelBuilder : ILevelBuilder
@@ -46,10 +46,13 @@ public class SimpleLevelBuilder : ILevelBuilder
     
     public void BuildEnemies()
     {
-        _level.Enemies.Add(new RandomEnemy(5, 5));
-        _level.Enemies.Add(new RandomEnemy(14, 5));
-        _level.Enemies.Add(new PatrolEnemy(3, 12));
-        _level.Enemies.Add(new PatrolEnemy(15, 15));
+        var randomFactory = new RandomEnemyFactory();
+        var patrolFactory = new PatrolEnemyFactory();
+        
+        _level.Enemies.Add(randomFactory.CreateEnemy(5, 5));
+        _level.Enemies.Add(randomFactory.CreateEnemy(14, 5));
+        _level.Enemies.Add(patrolFactory.CreateEnemy(3, 12));
+        _level.Enemies.Add(patrolFactory.CreateEnemy(15, 15));
     }
     
     public Level GetResult() => _level;
