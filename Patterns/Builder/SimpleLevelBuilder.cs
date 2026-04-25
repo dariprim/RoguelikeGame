@@ -19,7 +19,6 @@ public class SimpleLevelBuilder : ILevelBuilder
             _level.Walls.Add(new Wall(19, i));
         }
         
-        // Небольшие препятствия внутри
         for (int i = 5; i < 10; i++)
         {
             _level.Walls.Add(new Wall(10, i));
