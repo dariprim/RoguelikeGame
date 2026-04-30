@@ -1,8 +1,14 @@
 namespace RoguelikeGame.Core.Enemies;
 
+/// <summary>
+/// PATROL ENEMY: Враг, который патрулирует вперёд-назад
+/// Оружие: реализует территориальное поведение
+/// </summary>
 public class PatrolEnemy : Enemy
 {
+    // степпер для движения (двигаемся не каждый так
     private int _step;
+    // направление движения (1 = вправо, -1 = влево)
     private int _direction = 1;
     
     public PatrolEnemy(int x, int y) : base(x, y) { }

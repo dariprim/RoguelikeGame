@@ -3,9 +3,13 @@ using RoguelikeGame.Core.Enemies;
 
 namespace RoguelikeGame.Patterns.Builder;
 
+/// <summary>
+/// LEVEL: результат построения Builder'a
+/// хранит все элементы уровня
+/// </summary>
 public class Level
 {
-    // списки что построим 
+    // компоненты уровня
     public List<Wall> Walls { get; set; } = new();
     public Player? Player { get; set; }
     public Key? Key { get; set; }

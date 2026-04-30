@@ -4,32 +4,45 @@ using RoguelikeGame.Patterns.Builder;
 
 namespace RoguelikeGame.Patterns.Interpreter;
 
+/// <summary>
+/// INTERPRETER: Парсит текстовый формат уровня в игровые объекты
+/// Преобразует каждую строку в команду (ICommand)
+/// Позволяет сохранять уровни в текстовом формате
+/// </summary>
 public class LevelParser
 {
+    // Парсит файл уровня и сохраняет в Level
     public Level Parse(string filename)
     {
         var level = new Level();
         
+        // Проверим, что файл существует
         if (!File.Exists(filename))
         {
             Console.WriteLine($"[Parser] File not found: {filename}");
             return level;
         }
         
+        // Читаем все строки файла
         var lines = File.ReadAllLines(filename);
         
+        // Проябраем каждую строку и выполняем команду
         foreach (var line in lines)
         {
+            // Пропускаем пустые строки и комментарии
             if (string.IsNullOrWhiteSpace(line) || line.Trim().StartsWith("//"))
                 continue;
                 
+            // Парсим строку: тип объекта и его параметры
             var parts = line.Trim().Split(' ');
             if (parts.Length < 2) continue;
             
+            // Сохраняем команду для выполнения
             ICommand? command = null;
             
             try
             {
+                // Определяем тип команды и создаем нужные объекты
                 switch (parts[0].ToUpper())
                 {
                     case "WALL":
@@ -73,6 +86,7 @@ public class LevelParser
                         break;
                 }
                 
+                // Выполняем команду (Builder pattern)
                 command?.Execute(GameManager.Instance, level);
             }
             catch (Exception ex)

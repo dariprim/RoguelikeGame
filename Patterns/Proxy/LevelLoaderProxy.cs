@@ -5,17 +5,26 @@ using RoguelikeGame.Patterns.Interpreter;
 
 namespace RoguelikeGame.Patterns.Proxy;
 
+/// <summary>
+/// PROXY: Посредник для загружения уровня
+/// Отложенная загрузка (ленивая инициализация)
+/// Кэширование загруженных уровней
+/// </summary>
 public class LevelLoaderProxy
 {
+    // Кэш загруженного уровня
     private Level? _cachedLevel;
+    // Путь к файлу уровня
     private string _levelFile;
+    // Флаг, противых репетитивных загружек
     private bool _isLoaded = false;
     
     public LevelLoaderProxy(string levelFile)
     {
-        _levelFile = levelFile;
+        _levelFile = levelFile;  // Охраняем путь, но не гружим еще
     }
     
+    // Ленивая загрузка: гружим только когда действительно требуется
     public Level Load()
     {
         if (!_isLoaded)

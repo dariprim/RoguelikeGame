@@ -3,12 +3,17 @@ using RoguelikeGame.Core.Enemies;
 using RoguelikeGame.Patterns.AbstractFactory;
 namespace RoguelikeGame.Patterns.Builder;
 
+/// <summary>
+/// SIMPLE LEVEL BUILDER: конкретная реализация простого строителя уровней
+/// </summary>
 public class SimpleLevelBuilder : ILevelBuilder
 {
+    // готовый уровень
     private Level _level = new();
     
     public void Reset() => _level = new Level();
     
+    // Построим стены (стены края + внутренние по дефолту)
     public void BuildWalls()
     {
         for (int i = 0; i < 20; i++)
@@ -31,21 +36,25 @@ public class SimpleLevelBuilder : ILevelBuilder
     
     public void BuildPlayer()
     {
+        // создаем игрока на начальных координатах
         _level.Player = new Player(2, 2, GameManager.Instance);
     }
     
     public void BuildKey()
     {
+        // создаем ключ в далеком конце уровня
         _level.Key = new Key(17, 17);
     }
     
     public void BuildDoor()
     {
+        // создаем дверь на координатах 1,1
         _level.Door = new Door(1, 1);
     }
     
     public void BuildEnemies()
     {
+        // создаем врагов с помощью фабрик (Абстракт Фабрика)
         var randomFactory = new RandomEnemyFactory();
         var patrolFactory = new PatrolEnemyFactory();
         

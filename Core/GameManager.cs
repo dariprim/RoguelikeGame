@@ -2,9 +2,16 @@ using RoguelikeGame.Patterns.Observer;
 
 namespace RoguelikeGame.Core;
 
+/// <summary>
+/// SINGLETON: Единственный экземпляр менеджера игры
+/// Управляет состоянием игры (игрок, враги, ключ, конец игры)
+/// Уведомляет наблюдателей об изменениях через Observer pattern
+/// </summary>
 public class GameManager
 {
+    // Статическое поле для хранения единственного экземпляра
     private static GameManager? _instance;
+    // Свойство для получения/создания экземпляра (ленивая инициализация)
     public static GameManager Instance => _instance ??= new GameManager();
     
     public Player? Player { get; set; }
@@ -12,8 +19,10 @@ public class GameManager
     public bool HasKey { get; set; }
     public bool IsGameOver { get; private set; }
     
+    // Список наблюдателей для Observer pattern
     private List<IGameObserver> _observers = new();
     
+    // Приватный конструктор (Singleton)
     private GameManager()
     {
         Root = new GameObjectComposite();
@@ -21,8 +30,10 @@ public class GameManager
         IsGameOver = false;
     }
     
+    // Добавить наблюдателя (подписка на события)
     public void AddObserver(IGameObserver observer) => _observers.Add(observer);
     
+    // Уведомить всех наблюдателей об событии
     public void Notify(GameEvent gameEvent)
     {
         foreach (var observer in _observers)

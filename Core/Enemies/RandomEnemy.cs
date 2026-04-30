@@ -1,9 +1,13 @@
 namespace RoguelikeGame.Core.Enemies;
 
+/// <summary>
+/// RANDOM ENEMY: Враг, который двигается случайно в числюв одно из четырёх направлений
+/// </summary>
 public class RandomEnemy : Enemy
 {
     public RandomEnemy(int x, int y) : base(x, y) { }
     
+    // сразу двигаемся в случайном направлении
     public override void Update(GameManager gm)
     {
         var dirs = new[] { (0, 1), (0, -1), (1, 0), (-1, 0) };

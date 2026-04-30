@@ -6,14 +6,20 @@ using System.Text;
 
 namespace RoguelikeGame;
 
+/// <summary>
+/// POINT OF ENTRY: главный класс приложения
+/// Устанавливает параметры консоли, инициализирует игру и запускает основной цикл
+/// </summary>
 class Program
 {
     static void Main(string[] args)
     {
+        // настройка кодировки консоли (для русского текста)
         Console.OutputEncoding = Encoding.UTF8;
         Console.Title = "Roguelike Dungeon";
         Console.CursorVisible = false;
         
+        // установка размера консольного окна
         try
         {
             Console.SetWindowSize(60, 35);
@@ -21,22 +27,29 @@ class Program
         }
         catch { }
         
+        // SINGLETON: получаем единственный экземпляр менеджера игры
         var gm = GameManager.Instance;
+        // OBSERVER: добавляем наблюдателя для обновления UI
         gm.AddObserver(new UIObserver());
         
+        // PROXY: загружаем уровень с отложенной инициализацией
         var levelProxy = new LevelLoaderProxy("Levels/level1.txt");
         var level = levelProxy.Load();
+        // добавляем все объекты уровня в менеджер игры
         level.Setup(gm);
         
+        // MAIN GAME LOOP: основной цикл игры
         while (!gm.IsGameOver)
         {
             Console.Clear();
             
+            // рисуем заголовок, статус, игровое поле и управление
             DrawHeader();
             DrawStatus(gm);
             DrawGameField(gm);
             DrawControls();
             
+            // ждём нажатия клавиши и обрабатываем движение
             var key = Console.ReadKey(true).Key;
             int dx = 0, dy = 0;
             
