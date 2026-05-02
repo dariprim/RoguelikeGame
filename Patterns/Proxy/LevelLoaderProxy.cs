@@ -6,8 +6,7 @@ using RoguelikeGame.Patterns.Interpreter;
 namespace RoguelikeGame.Patterns.Proxy;
 
 /// <summary>
-/// PROXY: Посредник для загружения уровня
-/// Отложенная загрузка (ленивая инициализация)
+/// PROXY: Посредник для загрузки уровня
 /// Кэширование загруженных уровней
 /// </summary>
 public class LevelLoaderProxy

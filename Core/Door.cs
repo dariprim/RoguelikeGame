@@ -2,7 +2,7 @@ namespace RoguelikeGame.Core;
 
 /// <summary>
 /// DOOR: выход из подземелья
-/// Ходить докуда можно чим с ключом
+/// Ходить докуда можно с ключом
 /// </summary>
 public class Door : IGameObject
 {

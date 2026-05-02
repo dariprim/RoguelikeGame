@@ -2,7 +2,7 @@ namespace RoguelikeGame.Patterns.Observer;
 
 /// <summary>
 /// OBSERVER: Интерфейс для наблюдателей
-/// Наблюдатели получают завеномления об событиях в игре
+/// Наблюдатели получают уведомления об событиях в игре
 /// </summary>
 public interface IGameObserver
 {
